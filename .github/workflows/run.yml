@@ -17,4 +17,4 @@ jobs:
       - name: Run
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-        run: ./run.sh
+        run: bash ./run.sh
