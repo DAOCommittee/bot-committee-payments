@@ -64,7 +64,7 @@ async function getMANAPrice(): Promise<number> {
 }
 
 function toWei(amount: BigNumber): string {
-  return amount.multipliedBy(BigNumber(10).pow(18)).toString()
+  return amount.multipliedBy(BigNumber(10).pow(18)).toFixed(0)
 }
 
 interface CoinGeckoResponse {
