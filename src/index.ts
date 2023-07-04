@@ -49,7 +49,7 @@ void main()
 
 async function transferTransactionData(address: string, amount: BigNumber): Promise<MetaTransactionData> {
   let tx = { data: '', to: '' }
-  tx = await (contract as any).populateTransaction['transferFrom'](process.env.SAFE_ADDRESS!, address, toWei(amount))
+  tx = await (contract as any).populateTransaction['transfer'](address, toWei(amount))
 
   const data: MetaTransactionData = { data: tx.data, to: tx.to, value: '0' }
   return data
