@@ -22,7 +22,7 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC!)
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider)
   const ethAdapterSigner = new EthersAdapter({ ethers, signerOrProvider: signer })
-  const txServiceUrl = 'https://safe-transaction-polygon.safe.global/'
+  const txServiceUrl = 'https://safe-transaction-mainnet.safe.global/'
   const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterSigner })
   const safe = await Safe.create({ ethAdapter: ethAdapterSigner, safeAddress: process.env.SAFE_ADDRESS! })
 
