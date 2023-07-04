@@ -7,7 +7,7 @@ import 'dotenv/config'
 import abi from './abi'
 import BigNumber from 'bignumber.js'
 
-const contract = new ethers.Contract('0xFEC09d5C192aaf7Ec7E2C89Cc8D3224138391B2E', abi)
+const contract = new ethers.Contract('0x0f5d2fb29fb7d3cfee444a200298f468908cc942', abi)
 
 const committeeAddresses = [
   '0x521b0fef9cdcf250abaf8e7bc798cbe13fa98692', // Kyllian
