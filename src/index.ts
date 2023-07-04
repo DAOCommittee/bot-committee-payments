@@ -38,13 +38,13 @@ async function main() {
   const safeTransaction = await safe.createTransaction({ safeTransactionData })
   const safeTxHash = await safe.getTransactionHash(safeTransaction)
   const senderSignature = await safe.signTransactionHash(safeTxHash)
-  /* await safeService.proposeTransaction({
+  await safeService.proposeTransaction({
     safeAddress: process.env.SAFE_ADDRESS!,
     safeTransactionData: safeTransaction.data,
     safeTxHash,
     senderAddress: signer.address,
     senderSignature: senderSignature.data
-  }) */
+  })
 }
 
 void main()
