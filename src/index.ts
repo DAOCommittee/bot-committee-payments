@@ -14,8 +14,6 @@ const committeeAddresses = [
   '0x0E7C2D47D79D4026472F4f942c4947937dAa94a8' // Tobik
 ]
 
-const DAOMultiSig = '0x89214c8Ca9A49E60a3bfa8e00544F384C93719b1'
-
 const paymentInUSD = BigNumber(2400)
 
 async function main() {
@@ -51,7 +49,7 @@ void main()
 
 async function transferTransactionData(address: string, amount: BigNumber): Promise<MetaTransactionData> {
   let tx = { data: '', to: '' }
-  tx = await (contract as any).populateTransaction['transferFrom'](DAOMultiSig, address, toWei(amount))
+  tx = await (contract as any).populateTransaction['transferFrom'](process.env.SAFE_ADDRESS!, address, toWei(amount))
 
   const data: MetaTransactionData = { data: tx.data, to: tx.to, value: '0' }
   return data
