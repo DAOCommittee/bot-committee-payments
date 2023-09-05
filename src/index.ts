@@ -11,7 +11,8 @@ const contract = new ethers.Contract('0x0f5d2fb29fb7d3cfee444a200298f468908cc942
 
 const committeeAddresses = [
   '0x521b0fef9cdcf250abaf8e7bc798cbe13fa98692', // Kyllian
-  '0x0E7C2D47D79D4026472F4f942c4947937dAa94a8' // Tobik
+  '0x0E7C2D47D79D4026472F4f942c4947937dAa94a8', // Tobik
+  '0x2D83fFF2D4cE9F629bd636efCCff1662eb206fC4' // Rizk
 ]
 
 const paymentInUSD = BigNumber(2400)
