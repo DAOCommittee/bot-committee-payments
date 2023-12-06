@@ -34,7 +34,8 @@ async function main() {
   )
   console.log(safeTransactionData)
 
-  const safeTransaction = await safe.createTransaction({ safeTransactionData })
+  const nonce = await safe.getNonce()
+  const safeTransaction = await safe.createTransaction({ safeTransactionData, options: { nonce } })
   const safeTxHash = await safe.getTransactionHash(safeTransaction)
   const senderSignature = await safe.signTransactionHash(safeTxHash)
   await safeService.proposeTransaction({
