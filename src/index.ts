@@ -7,7 +7,7 @@ import 'dotenv/config'
 import abi from './abi'
 import BigNumber from 'bignumber.js'
 
-const contract = new ethers.Contract('0x0f5d2fb29fb7d3cfee444a200298f468908cc942', abi)
+const contract = new ethers.Contract('0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD4', abi)
 
 const committeeAddresses = [
   '0x521b0fef9cdcf250abaf8e7bc798cbe13fa98692', // Kyllian
@@ -21,7 +21,7 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider(process.env.RPC!)
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider)
   const ethAdapterSigner = new EthersAdapter({ ethers, signerOrProvider: signer })
-  const txServiceUrl = 'https://safe-transaction-mainnet.safe.global/'
+  const txServiceUrl = 'https://safe-transaction-polygon.safe.global/'
   const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterSigner })
   const safe = await Safe.create({ ethAdapter: ethAdapterSigner, safeAddress: process.env.SAFE_ADDRESS! })
 
