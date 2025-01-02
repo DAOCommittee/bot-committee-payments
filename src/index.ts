@@ -1,6 +1,6 @@
 import { fetch } from 'undici'
 import * as ethers from 'ethers'
-import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
+import Safe from '@safe-global/protocol-kit'
 import SafeApiKit from '@safe-global/api-kit'
 import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
 import 'dotenv/config'
@@ -20,8 +20,7 @@ const paymentInUSD = BigNumber(2400)
 async function main() {
   const provider = new ethers.JsonRpcProvider(process.env.RPC!)
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider)
-  const txServiceUrl = 'https://safe-transaction-polygon.safe.global/'
-  const safeService = new SafeApiKit({ txServiceUrl, chainId: BigInt(137) })
+  const safeService = new SafeApiKit({ chainId: BigInt(137) })
   const safe = await Safe.init({
     provider: process.env.RPC!,
     signer: process.env.PRIVATE_KEY!,
@@ -41,6 +40,7 @@ async function main() {
   const safeTransaction = await safe.createTransaction({ transactions: safeTransactionData, options: { nonce } })
   const safeTxHash = await safe.getTransactionHash(safeTransaction)
   const senderSignature = await safe.signHash(safeTxHash)
+
   await safeService.proposeTransaction({
     safeAddress: process.env.SAFE_ADDRESS!,
     safeTransactionData: safeTransaction.data,
@@ -54,7 +54,10 @@ void main()
 
 async function transferTransactionData(address: string, amount: BigNumber): Promise<MetaTransactionData> {
   let tx = { data: '', to: '' }
-  tx = await (contract as any).populateTransaction['transfer'](address, toWei(amount))
+  console.log(tx)
+
+  tx = await (contract as any).transfer.populateTransaction(address, toWei(amount))
+  console.log(tx)
 
   const data: MetaTransactionData = { data: tx.data, to: tx.to, value: '0' }
   return data
