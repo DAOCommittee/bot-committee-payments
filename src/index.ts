@@ -1,6 +1,6 @@
 import { fetch } from 'undici'
 import * as ethers from 'ethers'
-import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
+import Safe, { PredictedSafeProps } from '@safe-global/protocol-kit'
 import SafeApiKit from '@safe-global/api-kit'
 import { MetaTransactionData } from '@safe-global/safe-core-sdk-types'
 import 'dotenv/config'
@@ -18,12 +18,15 @@ const committeeAddresses = [
 const paymentInUSD = BigNumber(2400)
 
 async function main() {
-  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC!)
+  const provider = new ethers.JsonRpcProvider(process.env.RPC!)
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider)
-  const ethAdapterSigner = new EthersAdapter({ ethers, signerOrProvider: signer })
   const txServiceUrl = 'https://safe-transaction-polygon.safe.global/'
-  const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterSigner })
-  const safe = await Safe.create({ ethAdapter: ethAdapterSigner, safeAddress: process.env.SAFE_ADDRESS! })
+  const safeService = new SafeApiKit({ txServiceUrl, chainId: BigInt(137) })
+  const safe = await Safe.init({
+    provider: process.env.RPC!,
+    signer: process.env.PRIVATE_KEY!,
+    safeAddress: process.env.SAFE_ADDRESS!
+  })
 
   const manaPrice = await getMANAPrice()
 
@@ -35,9 +38,9 @@ async function main() {
   console.log(safeTransactionData)
 
   const nonce = await safe.getNonce()
-  const safeTransaction = await safe.createTransaction({ safeTransactionData, options: { nonce } })
+  const safeTransaction = await safe.createTransaction({ transactions: safeTransactionData, options: { nonce } })
   const safeTxHash = await safe.getTransactionHash(safeTransaction)
-  const senderSignature = await safe.signTransactionHash(safeTxHash)
+  const senderSignature = await safe.signHash(safeTxHash)
   await safeService.proposeTransaction({
     safeAddress: process.env.SAFE_ADDRESS!,
     safeTransactionData: safeTransaction.data,
