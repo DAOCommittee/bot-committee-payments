@@ -12,7 +12,11 @@ jobs:
         with:
           node-version: '18'
       - run: npm install
-      - name: Run
+      - name: Run Committee
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         run: npx ts-node ./src/index.ts
+      - name: Run Council
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        run: npx ts-node ./src/council.ts

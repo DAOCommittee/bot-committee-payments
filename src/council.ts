@@ -9,13 +9,15 @@ import BigNumber from 'bignumber.js'
 
 const contract = new ethers.Contract('0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD4', abi)
 
-const committeeAddresses = [
-  '0x521b0fef9cdcf250abaf8e7bc798cbe13fa98692', // Kyllian
-  '0x0E7C2D47D79D4026472F4f942c4947937dAa94a8', // Tobik
-  '0x2D83fFF2D4cE9F629bd636efCCff1662eb206fC4' // Rizk
+const councilAddresses = [
+  '0x3f6b1d01b6823ab235fc343069b62b6472774cd1', // MetaRyuk
+  '0xd6eFf8F07cAF3443A1178407d3de4129149D6eF6', // Canessa
+  '0x02e11F84C4c0b412977c2eD3D00fAc1f28EADC11', // Fehz
+  '0x8DD060AD7f867ad890490fd87657c1b7e63C622f', // Agus
+  '0xb0145Ae156D201d6E371d07265FE3C045071c967' // Maraoz
 ]
 
-const paymentInUSD = BigNumber(2400)
+const paymentInUSD = BigNumber(1000)
 
 async function main() {
   const provider = new ethers.JsonRpcProvider(process.env.RPC!)
@@ -33,7 +35,7 @@ async function main() {
   const paymentInMANA = paymentInUSD.dividedBy(BigNumber(manaPrice))
 
   const safeTransactionData: MetaTransactionData[] = await Promise.all(
-    committeeAddresses.map(async (address) => await transferTransactionData(address, paymentInMANA))
+    councilAddresses.map(async (address) => await transferTransactionData(address, paymentInMANA))
   )
 
   const nonce = await safe.getNonce()
