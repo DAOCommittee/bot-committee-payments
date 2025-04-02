@@ -38,7 +38,7 @@ async function main() {
     councilAddresses.map(async (address) => await transferTransactionData(address, paymentInMANA))
   )
 
-  const nonce = await safe.getNonce()
+  const nonce = (await safe.getNonce()) + 1
 
   const safeTransaction = await safe.createTransaction({
     transactions: safeTransactionData,
