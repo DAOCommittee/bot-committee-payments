@@ -14,7 +14,6 @@ const councilAddresses = [
   '0xd6eFf8F07cAF3443A1178407d3de4129149D6eF6', // Canessa
   '0x02e11F84C4c0b412977c2eD3D00fAc1f28EADC11', // Fehz
   '0x8DD060AD7f867ad890490fd87657c1b7e63C622f', // Agus
-  '0xb0145Ae156D201d6E371d07265FE3C045071c967' // Maraoz
 ]
 
 const paymentInUSD = BigNumber(1000)
